@@ -12,7 +12,6 @@ public class Main {
         tren.agregarVagon(new Vagon(280000));
         tren.agregarVagon(new Vagon(35000));
         System.out.println(tren);
-        tren.getInfo();
     }
 
 }

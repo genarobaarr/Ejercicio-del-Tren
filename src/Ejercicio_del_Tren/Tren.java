@@ -15,26 +15,26 @@ public class Tren {
     }
 
     public void agregarLocomotora(Locomotora locomotora) {
-        if (tamActual <= 100) {
+        if (tamActual < 100) {
             capacidadCarga += locomotora.getCapacidadCarga();
-            tamActual++;
             longitud += locomotora.getLongitud();
             numElementos++;
             peso += locomotora.getPeso();
             elementos[tamActual] = locomotora;
+            tamActual++;
         }
     }
 
     public void agregarVagon(Vagon vagon) {
-        if (tamActual <= 100) {
+        if (tamActual < 100) {
             while (peso + vagon.getPeso() > capacidadCarga) {
                 agregarLocomotora(new Locomotora());
             }
-            tamActual++;
             longitud += vagon.getLongitud();
             numElementos++;
             peso += vagon.getPeso();
             elementos[tamActual] = vagon;
+            tamActual++;
         }
     }
 
@@ -69,11 +69,18 @@ public class Tren {
 
     @Override
     public String toString() {
-        return  "--- Dimensiones ---\n" +
+        StringBuilder trenCompleto = new StringBuilder();
+        for (ElementoTren elemento : elementos) {
+            if (elemento != null) {
+                trenCompleto.append("|").append(elemento.getTipo()).append("|¬");
+            }
+        }
+
+        return  "\n--- Dimensiones ---\n" +
                 "Número de Elementos = " + numElementos +
                 "\nPeso = " + peso + " kilogramos" +
                 "\nLongitud = " + longitud + " metros" +
                 "\nCapacidad de Carga = " + capacidadCarga + " kilogramos" +
-                "\n\n";
+                "\n\n" + trenCompleto.toString();
     }
 }
