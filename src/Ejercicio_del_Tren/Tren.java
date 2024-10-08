@@ -10,44 +10,62 @@ public class Tren {
     private int numElementos = 0;
     private double peso = 0;
     private int tamActual = 0;
+    public String informacion;
 
     public Tren() {
     }
 
     public void agregarLocomotora(Locomotora locomotora) {
         if (tamActual < 100) {
-            capacidadCarga += locomotora.getCapacidadCarga();
-            longitud += locomotora.getLongitud();
-            numElementos++;
-            peso += locomotora.getPeso();
+
             elementos[tamActual] = locomotora;
-            tamActual++;
+            ajustarDimensiones(locomotora);
+            informacion = getInfo(locomotora);
+
+        }else {
+            System.out.println("\t\nHas llegado al máximo número de vagones posibles.");
         }
     }
 
     public void agregarVagon(Vagon vagon) {
         if (tamActual < 100) {
+
             while (peso + vagon.getPeso() > capacidadCarga) {
                 agregarLocomotora(new Locomotora());
             }
-            longitud += vagon.getLongitud();
-            numElementos++;
-            peso += vagon.getPeso();
+
             elementos[tamActual] = vagon;
-            tamActual++;
+            ajustarDimensiones(vagon);
+            informacion = getInfo(vagon);
+
+        }else {
+            System.out.println("\t\nHas llegado al máximo número de vagones posibles.");
         }
     }
 
-    private void ajustarDimensiones(ElementoTren elementos) {
+    private void ajustarDimensiones(ElementoTren elemento) {
 
+        longitud += elemento.getLongitud();
+        numElementos++;
+        peso += elemento.getPeso();
+
+        if (elemento.getTipo().equals("Locomotora")){
+            Locomotora l = (Locomotora) elemento;
+            capacidadCarga += l.getCapacidadCarga();
+        }
+
+        tamActual++;
     }
 
     public double getCapacidadCarga() {
         return capacidadCarga;
     }
 
-    public void getInfo() {
-
+    public String getInfo(ElementoTren elemento) {
+        return "\n\t<<<Último vagón>>>\n" +
+                "\nTipo = " + elemento.getTipo() +
+                "\nPeso = " + elemento.getPeso() + " kilogramos" +
+                "\nLongitud = " + elemento.getLongitud() + " metros\n";
     }
 
     public double getLongitud() {
@@ -76,11 +94,11 @@ public class Tren {
             }
         }
 
-        return  "\n--- Dimensiones ---\n" +
+        return  "\n\t<<<<< DIMENSIONES >>>>>\n" +
                 "Número de Elementos = " + numElementos +
                 "\nPeso = " + peso + " kilogramos" +
                 "\nLongitud = " + longitud + " metros" +
                 "\nCapacidad de Carga = " + capacidadCarga + " kilogramos" +
-                "\n\n" + trenCompleto.toString();
+                "\n\n" + trenCompleto.toString() + "\n\n\n";
     }
 }
