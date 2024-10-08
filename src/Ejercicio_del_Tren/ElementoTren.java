@@ -1,6 +1,6 @@
 package Ejercicio_del_Tren;
 
-public class ElementoTren {
+public class ElementoTren{
 
     private String tipo;
     private double longitud;

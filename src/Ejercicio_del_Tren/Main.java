@@ -5,12 +5,12 @@ public class Main {
     public static void main(String[] args) {
 
         Tren tren = new Tren();
-        tren.agregarLocomotora();
-        tren.agregarVagones(80000);
-        tren.agregarVagones(120000);
-        tren.agregarVagones(70000);
-        tren.agregarVagones(280000);
-        tren.agregarVagones(35000);
+        tren.agregarLocomotora(new Locomotora());
+        tren.agregarVagon(new Vagon(80000));
+        tren.agregarVagon(new Vagon(120000));
+        tren.agregarVagon(new Vagon(70000));
+        tren.agregarVagon(new Vagon(280000));
+        tren.agregarVagon(new Vagon(35000));
         System.out.println(tren);
         tren.getInfo();
     }

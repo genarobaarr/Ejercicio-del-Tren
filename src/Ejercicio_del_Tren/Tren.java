@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Tren {
 
     private double capacidadCarga = 0;
-    private ElementoTren elementos[];
+    private ElementoTren[] elementos = new ElementoTren[100];
     private double longitud = 0;
     private int numElementos = 0;
     private double peso = 0;
@@ -14,32 +14,31 @@ public class Tren {
     public Tren() {
     }
 
-    public void agregarLocomotora() {
-        if (numElementos <= 100) {
-            Locomotora locomotora = new Locomotora("Locomotora", 20.17, 92600);
-            capacidadCarga += 200000;
-            longitud += 20.17;
+    public void agregarLocomotora(Locomotora locomotora) {
+        if (tamActual <= 100) {
+            capacidadCarga += locomotora.getCapacidadCarga();
+            tamActual++;
+            longitud += locomotora.getLongitud();
             numElementos++;
-            peso += 92600;
+            peso += locomotora.getPeso();
+            elementos[tamActual] = locomotora;
         }
     }
 
-    public void agregarVagones(double carga) {
-        if (numElementos <= 100) {
-            if (peso < capacidadCarga) {
-
-                Vagon vagon = new Vagon("Vagón", 18.28, 25400 + carga);
-                longitud += 18.28;
-                numElementos++;
-                peso += carga+25400;
-
-            } else {
-                agregarLocomotora();
+    public void agregarVagon(Vagon vagon) {
+        if (tamActual <= 100) {
+            while (peso + vagon.getPeso() > capacidadCarga) {
+                agregarLocomotora(new Locomotora());
             }
+            tamActual++;
+            longitud += vagon.getLongitud();
+            numElementos++;
+            peso += vagon.getPeso();
+            elementos[tamActual] = vagon;
         }
     }
 
-    private void ajustaDimensiones() {
+    private void ajustarDimensiones(ElementoTren elementos) {
 
     }
 
@@ -48,12 +47,13 @@ public class Tren {
     }
 
     public void getInfo() {
-        toString();
+
     }
 
     public double getLongitud() {
         return longitud;
     }
+
 
     public int getNumElementos() {
         return numElementos;
@@ -71,8 +71,9 @@ public class Tren {
     public String toString() {
         return  "--- Dimensiones ---\n" +
                 "Número de Elementos = " + numElementos +
-                "\nPeso = " + peso +
-                "\nLongitud = " + longitud +
-                "\nCapacidad de Carga = " + capacidadCarga;
+                "\nPeso = " + peso + " kilogramos" +
+                "\nLongitud = " + longitud + " metros" +
+                "\nCapacidad de Carga = " + capacidadCarga + " kilogramos" +
+                "\n\n";
     }
 }
