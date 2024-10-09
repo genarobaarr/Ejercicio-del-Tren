@@ -51,6 +51,8 @@ public class Main {
                     System.out.println("\tSaliendo del programa.\n");
                     System.out.println(tren);
                     break;
+                default:
+                    System.out.println("\tIngresa una opción válida.\n");
             }
 
         }while (opc != 5);

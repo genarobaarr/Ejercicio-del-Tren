@@ -11,6 +11,7 @@ public class Tren {
     private double peso = 0;
     private int tamActual = 0;
     public String informacion;
+    private boolean contadorExceso = true;
 
     public Tren() {
     }
@@ -23,7 +24,10 @@ public class Tren {
             informacion = getInfo(locomotora);
 
         }else {
-            System.out.println("\t\nHas llegado al máximo número de vagones posibles.");
+            if(contadorExceso) {
+                System.out.println("\t\nHas llegado al máximo número de vagones posibles.");
+                contadorExceso = false;
+            }
         }
     }
 
@@ -39,7 +43,10 @@ public class Tren {
             informacion = getInfo(vagon);
 
         }else {
-            System.out.println("\t\nHas llegado al máximo número de vagones posibles.");
+            if (contadorExceso) {
+                System.out.println("\t\nHas llegado al máximo número de vagones posibles.");
+                contadorExceso = false;
+            }
         }
     }
 
